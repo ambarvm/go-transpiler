@@ -39,7 +39,7 @@ const return CONST;
 chan return CHAN;
 range return RANGE;
 type return TYPE;
-
+fallthrough return FALLTHROUGH;
 
 
 

@@ -19,6 +19,23 @@ if return IF;
 else return ELSE;
 for return FOR;
 
+break return BREAK;
+continue return CONTINUE;
+return return RETURN;
+package return PACKAGE;
+switch return SWITCH;
+case return CASE;
+struct return STRUCT;
+import return IMPORT;
+goto return GOTO;
+
+; return SEMICOLON;
+: return COLON;
+, return COMMA;
+. return DOT;
+:= return DEFINE;
+
+
 \{ return BRACE_START;
 \} return BRACE_END;
 \( return RBRACKET_START;
@@ -26,8 +43,9 @@ for return FOR;
 \[ return SBRACKET_START;
 \] return SBRACKET_END;
 
+
 >|<|>=|<=|==|!= return RELOP;
-\+|-|\*|\/|%|\+\+|-- return AROP;
+\+|\-|\*|\/|%|\+\+|-- return AROP;
 &&|\|\||! return LOGOP;
 
 true|false return BOOL_CONST;

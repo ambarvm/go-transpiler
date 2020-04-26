@@ -29,6 +29,20 @@ struct return STRUCT;
 import return IMPORT;
 goto return GOTO;
 
+go return GO;
+defer return DEFER;
+default return DEFAULT;
+interface return INTERFACE;
+map return MAP;
+select return SELECT;
+const return CONST;
+chan return CHAN;
+range return RANGE;
+type return TYPE;
+
+
+
+
 ; return SEMICOLON;
 : return COLON;
 , return COMMA;

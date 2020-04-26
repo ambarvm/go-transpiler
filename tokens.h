@@ -5,6 +5,30 @@
 #define ELSE 4
 #define FOR 5
 
+#define BREAK 6
+#define DEFER 7
+#define GOTO 8
+#define DEFAULT 9
+#define GO 10
+#define PACKAGE 11
+#define INTERFACE 12
+#define MAP 13
+#define SWITCH 14
+#define SELECT 15
+#define STRUCT 16
+#define CONST 17
+#define CASE 18
+#define CHAN 19
+#define FALLTHROUGH 20
+#define RANGE 21
+#define TYPE 22
+#define CONTINUE 23
+#define IMPORT 24
+#define RETURN 25
+
+
+
+
 #define BRACE_START 30
 #define BRACE_END 31
 #define RBRACKET_START 32

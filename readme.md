@@ -1,4 +1,4 @@
-Hello Ambar!!
+
 # Go Transpiler
 
 ## Getting Started

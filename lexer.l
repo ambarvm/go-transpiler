@@ -42,11 +42,10 @@ type return TYPE;
 fallthrough return FALLTHROUGH;
 
 
-
 ; return SEMICOLON;
 : return COLON;
 , return COMMA;
-. return DOT;
+\. return DOT;
 := return DEFINE;
 
 
@@ -61,6 +60,7 @@ fallthrough return FALLTHROUGH;
 >|<|>=|<=|==|!= return RELOP;
 \+|\-|\*|\/|%|\+\+|-- return AROP;
 &&|\|\||! return LOGOP;
+=|\+=|-=|\*=|\/=|%=|<<=|>>=|&=|^=|\|= return ASOP;
 
 true|false return BOOL_CONST;
 \"(\\.|[^"\\\n])*\" return STR_CONST;

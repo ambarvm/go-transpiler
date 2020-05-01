@@ -26,9 +26,6 @@
 #define IMPORT 24
 #define RETURN 25
 
-
-
-
 #define BRACE_START 30
 #define BRACE_END 31
 #define RBRACKET_START 32
@@ -40,8 +37,15 @@
 #define RELOP 40  // Relational operator
 #define AROP 41   // Arithmetic operator
 #define LOGOP 42  // Logical operator
+#define ASOP 43   // Assignment operator
 
 #define ID 50
 #define STR_CONST 51
 #define INT_CONST 52
 #define BOOL_CONST 53
+
+#define SEMICOLON 60;
+#define COLON 61;
+#define COMMA 62;
+#define DOT 63;
+#define DEFINE 64;

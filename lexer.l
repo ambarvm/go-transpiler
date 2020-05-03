@@ -1,13 +1,18 @@
 %option noyywrap
 
 %{
-#include "tokens.h"
+#include "include/tokens.h"
+#include "include/symbol-table.h"
 #include <iostream>
 #include <fstream>
 
 using namespace std;
 
+int yylval;
+
 int count = 0;
+SymbolTable table;
+
 %}
 sep [ \n\t]
 
@@ -62,11 +67,23 @@ fallthrough return FALLTHROUGH;
 &&|\|\||! return LOGOP;
 =|\+=|-=|\*=|\/=|%=|<<=|>>=|&=|^=|\|= return ASOP;
 
-true|false return BOOL_CONST;
-\"(\\.|[^"\\\n])*\" return STR_CONST;
-[0-9]+ return INT_CONST;
+true|false {
+    yylval = table.insert(entry(yytext, BOOL_CONST, ""));
+    return BOOL_CONST;
+};
+\"(\\.|[^"\\\n])*\" {
+    yylval = table.insert(entry(yytext, STR_CONST, ""));
+    return STR_CONST;
+};
+[0-9]+ {
+    yylval = table.insert(entry(yytext, INT_CONST, ""));
+    return INT_CONST;
+};
 
-[a-zA-Z_][a-zA-Z0-9_]* return ID;
+[a-zA-Z_][a-zA-Z0-9_]* {
+    yylval = table.insert(entry(yytext, ID, ""));
+    return ID;
+};
 
 %%
 
@@ -79,7 +96,10 @@ int main() {
     int token;
 
     while((token = lexer->yylex()) != 0) {
-        printf("<%d, %s>", token, lexer->YYText());
+        if (token == ID || token == INT_CONST || token == BOOL_CONST || token == STR_CONST)
+            printf("<%d, %s, %d>", token, lexer->YYText(), yylval);
+        else
+            printf("<%d, %s>", token, lexer->YYText());
     }
 
     return 0;

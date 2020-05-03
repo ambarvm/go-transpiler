@@ -38,6 +38,7 @@
 #define AROP 41   // Arithmetic operator
 #define LOGOP 42  // Logical operator
 #define ASOP 43   // Assignment operator
+#define BSOP 44  //  Bitwise  operator
 
 #define ID 50
 #define STR_CONST 51

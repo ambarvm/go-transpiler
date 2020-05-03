@@ -66,6 +66,7 @@ fallthrough return FALLTHROUGH;
 \+|\-|\*|\/|%|\+\+|-- return AROP;
 &&|\|\||! return LOGOP;
 =|\+=|-=|\*=|\/=|%=|<<=|>>=|&=|^=|\|= return ASOP;
+&|\||^|<<|>> return BSOP;
 
 true|false {
     yylval = table.insert(entry(yytext, BOOL_CONST, ""));

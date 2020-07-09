@@ -1,4 +1,9 @@
 lex.yy.cc
+lex.yy.c
 lexer
+go.tab.c
+go.tab.h
+go.output
+parse
 
 .vscode/

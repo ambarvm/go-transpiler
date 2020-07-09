@@ -1,6 +1,7 @@
-lexer: lexer.l include/tokens.h include/symbol-table.h src/symbol-table.cc
-	flex -+ ./lexer.l
-	g++ src/symbol-table.cc lex.yy.cc -lfl -o lexer
+parser: go.l go.y
+	bison -d go.y
+	flex go.l
+	gcc go.tab.c lex.yy.c -lfl -o parse
 
 clean:
-	rm lex.yy.cc lexer
+	rm lex.yy.c parse go.tab.* go.output

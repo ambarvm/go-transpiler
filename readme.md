@@ -1,10 +1,11 @@
-
-# Go Transpiler
+# Golang Parser
 
 ## Getting Started
+
 To complile and run the lexer:
+
 ```bash
-make lexer
-chmod +x lexer
-./lexer
+make parser
+chmod +x parse
+./parse test.go
 ```

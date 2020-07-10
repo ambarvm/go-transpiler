@@ -15,8 +15,9 @@
 ">=" return f(GTE);
 "<<" return f(LSHIFT);
 ">>" return f(RSHIFT);
+"&^" return f(BIT_CLEAR);
 
-":=" return f(DECLARE_ASSIGN);
+":=" return f(COLON_EQUAL);
 "+=" return f(ADD_ASSIGN);
 "-=" return f(SUB_ASSIGN);
 "*=" return f(MUL_ASSIGN);

@@ -67,7 +67,7 @@ var return f(VAR);
 
 
  /* Constants */
-[0-9](_[0-9]|[0-9])* return f(INT_LTR);
+[0][oO](_[0-7]|[0-7])*|[0][xX](_[0-9a-fA-F]|[0-9a-fA-F])*|[0][bB](_[01]|[01])*|[0-9](_[0-9]|[0-9])* return f(INT_LTR);
 \"(\\.|[^"\\\n])*\" return f(STRING_LTR);
 true|false return f(BOOL_LTR);
 

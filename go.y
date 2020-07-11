@@ -5,6 +5,7 @@
   void yyerror(char*);
 
   extern FILE *yyin;
+  extern int yylineno;
 %}
 
 %right '=' COLON_EQUAL ADD_ASSIGN SUB_ASSIGN MUL_ASSIGN DIV_ASSIGN MOD_ASSIGN LS_ASSIGN RS_ASSIGN AND_ASSIGN XOR_ASSIGN OR_ASSIGN
@@ -25,7 +26,7 @@
 // Keywords
 %token BREAK DEFAULT FUNC INTERFACE SELECT CASE DEFER GO MAP STRUCT CHAN ELSE GOTO PACKAGE SWITCH CONST FALLTHROUGH IF RANGE TYPE CONTINUE FOR IMPORT RETURN VAR
 
-%token INT_LTR STRING_LTR BOOL_LTR IDENT
+%token INT_LTR STRING_LTR BOOL_LTR RUNE_LTR IDENT
 
 %%
 file:package_clause ';' import_list top_level_decl_list;
@@ -61,7 +62,7 @@ const_spec:ident_list
 
 
 var_decl:VAR var_spec
-|'(' var_spec_list ')';
+|VAR '(' var_spec_list ')';
 
 var_spec_list:
 |var_spec_list var_spec ';';
@@ -84,7 +85,7 @@ alias_decl: IDENT '=' type;
 type_def: IDENT type;
 
 expr_list:expr
-|expr_list ',' expr;
+|expr ',' expr_list;
 
 stmt_list:
 |stmt_list stmt ';';
@@ -116,7 +117,8 @@ inc_dec_stmt:expr INCR
 |expr DECR;
 
 assignment:expr_list assign_op expr_list;
-assign_op:ADD_ASSIGN
+assign_op:'='
+|ADD_ASSIGN
 |SUB_ASSIGN
 |MUL_ASSIGN
 |DIV_ASSIGN
@@ -141,7 +143,8 @@ defer_stmt:DEFER expr;
 if_stmt:IF expr block else_block_opt
 |IF simple_stmt ';' expr block else_block_opt;
 
-else_block_opt:ELSE block
+else_block_opt:
+|ELSE block
 |ELSE if_stmt;
 
 for_stmt:FOR block
@@ -169,19 +172,34 @@ switch_case:DEFAULT
 block: '{' stmt_list '}';
 
 expr:unary_expr
-|expr binary_op expr;
+|expr LOG_OR expr
+|expr LOG_AND expr
+|expr EQ expr
+|expr NEQ expr
+|expr '<' expr
+|expr LTE expr
+|expr '>' expr
+|expr GTE expr
+|expr '+' expr
+|expr '-' expr
+|expr '|' expr
+|expr '^' expr
+|expr '*' expr
+|expr '/' expr
+|expr '%' expr
+|expr '&' expr
+|expr LSHIFT expr
+|expr RSHIFT expr
+|expr BIT_CLEAR expr
+;
 
 unary_expr:primary_expr
 |unary_op unary_expr;
 
-binary_op:LOG_OR|LOG_AND|rel_op|add_op|mul_op;
-rel_op:EQ|NEQ|'<'|LTE|'>'|GTE;
-add_op:'+'|'-'|'|'|'^';
-mul_op:'*'|'/'|'%'|LSHIFT|RSHIFT|'&'|BIT_CLEAR;
-
 unary_op:'+'|'-'|'!'|'^'|'*'|'&';
 
 primary_expr:operand
+|conversion
 |primary_expr selector
 |primary_expr index
 |primary_expr type_assertion
@@ -197,11 +215,14 @@ operand:literal
 |operand_name
 |'(' expr ')';
 
+conversion: non_expr_type '(' expr ')'
+|non_expr_type '(' expr ',' ')';
+
 operand_name:IDENT;
 
 literal: basic_lit;
 
-basic_lit:INT_LTR|STRING_LTR;
+basic_lit:INT_LTR|STRING_LTR|BOOL_LTR|RUNE_LTR;
 
 expr_opt:
 |expr;
@@ -210,6 +231,12 @@ expr_opt:
 type: type_name
 |type_lit
 |'(' type ')';
+
+non_expr_type:arr_type
+|'(' non_expr_type ')';
+
+// non_ident_type:type_lit
+// |'(' non_ident_type ')';
 
 type_name: IDENT;
 
@@ -242,22 +269,29 @@ param_decl:ident_list VARIADIC type
 |VARIADIC type;
 
 ident_list:IDENT
-|ident_list ',' IDENT;
+|IDENT ',' ident_list;
 
 comma_opt:','|;
 %%
 
+char* filename;
+
 int main(int argc, char* argv[]) {
   if (argc == 2) {
+    filename = argv[1];
     yyin = fopen(argv[1], "r");
   } else if (argc > 2) {
     printf("Usage: %s [filename]\n", argv[0]);
     return 1;
+  } else {
+    filename = "line";
   }
+
   yyparse();
+
   return 0;
 }
 
 void yyerror(char *s) {
-  fprintf(stderr, "error:%s\n", s);
+  fprintf(stderr, "%s:%d error:%s\n", filename, yylineno, s);
 }

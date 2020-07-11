@@ -22,6 +22,7 @@
 %right '!'
 %token INCR DECR
 %token VARIADIC
+%expect 3
 
 // Keywords
 %token BREAK DEFAULT FUNC INTERFACE SELECT CASE DEFER GO MAP STRUCT CHAN ELSE GOTO PACKAGE SWITCH CONST FALLTHROUGH IF RANGE TYPE CONTINUE FOR IMPORT RETURN VAR
@@ -249,7 +250,8 @@ ptr_type: '*' type;
 
 
 /* Functions */
-func_decl: FUNC IDENT signature block;
+func_decl: FUNC IDENT signature
+|FUNC IDENT signature block;
 
 signature:params
 |params result;
@@ -275,6 +277,7 @@ comma_opt:','|;
 %%
 
 char* filename;
+int ret_value = 0;
 
 int main(int argc, char* argv[]) {
   if (argc == 2) {
@@ -289,9 +292,10 @@ int main(int argc, char* argv[]) {
 
   yyparse();
 
-  return 0;
+  return ret_value;
 }
 
 void yyerror(char *s) {
   fprintf(stderr, "%s:%d error:%s\n", filename, yylineno, s);
+  ret_value = 1;
 }

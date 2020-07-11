@@ -25,7 +25,7 @@
 %expect 3
 
 // Keywords
-%token BREAK DEFAULT FUNC INTERFACE SELECT CASE DEFER GO MAP STRUCT CHAN ELSE GOTO PACKAGE SWITCH CONST FALLTHROUGH IF RANGE TYPE CONTINUE FOR IMPORT RETURN VAR
+%token BREAK DEFAULT FUNC CASE DEFER GO ELSE GOTO PACKAGE SWITCH CONST FALLTHROUGH IF RANGE TYPE CONTINUE FOR IMPORT RETURN VAR
 
 %token INT_LTR FLOAT_LTR STRING_LTR BOOL_LTR RUNE_LTR IDENT
 
@@ -243,12 +243,14 @@ non_expr_type:arr_type
 type_name: IDENT;
 
 type_lit:arr_type
-|ptr_type;
+|ptr_type
+|slice_type;
 
 arr_type: '[' expr ']' type;
 
 ptr_type: '*' type;
 
+slice_type:'[' ']' type;
 
 /* Functions */
 func_decl: FUNC IDENT signature

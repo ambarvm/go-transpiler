@@ -50,14 +50,9 @@ DEC_EXPO [eE][+-]?{DEC_DIGITS}
 break return f(BREAK);
 default return f(DEFAULT);
 func return f(FUNC);
-interface return f(INTERFACE);
-select return f(SELECT);
 case return f(CASE);
 defer return f(DEFER);
 go return f(GO);
-map return f(MAP);
-struct return f(STRUCT);
-chan return f(CHAN);
 else return f(ELSE);
 goto return f(GOTO);
 package return f(PACKAGE);

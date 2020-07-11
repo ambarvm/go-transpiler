@@ -210,7 +210,8 @@ selector: '.' IDENT;
 index:'[' expr ']';
 type_assertion:'.' '(' type ')';
 arguments: '(' expr_list comma_opt ')'
-|'(' expr_list VARIADIC comma_opt ')';
+|'(' expr_list VARIADIC comma_opt ')'
+|'(' ')';
 
 operand:literal
 |operand_name

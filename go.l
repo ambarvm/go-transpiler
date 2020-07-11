@@ -94,6 +94,8 @@ true|false return f(BOOL_LTR);
 
 [a-zA-Z_][a-zA-Z0-9_]* return f(IDENT);
 
+ /* Ignoring \r so that \n matches with both LF and CRLF line endings */
+\r ;
 \n { int token = f('\n'); if (token != '\n') return token; }
 [ \t] ;
 

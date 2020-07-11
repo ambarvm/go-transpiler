@@ -73,7 +73,7 @@ var return f(VAR);
 
  /* Constants */
 [0][oO](_[0-7]|[0-7])*|[0][xX](_[0-9a-fA-F]|[0-9a-fA-F])*|[0][bB](_[01]|[01])*|[0-9](_[0-9]|[0-9])* return f(INT_LTR);
-[0-9]*[.]?[0-9](_[0-9]|[0-9])*([eE][-+]?[0-9](_[0-9]|[0-9])*)?|[0](x|X)(_[0-9a-fA-F]|[0-9a-fA-F])*[.]?(p|P)[+-]?[0-9]+ return f(FLOAT_LTR);
+[0](x|X)(_[0-9a-fA-F]|[0-9a-fA-F])*[.]?(p|P)[+-]?[0-9]+|[0-9]*[.]?[0-9](_[0-9]|[0-9])*([eE][-+]?[0-9](_[0-9]|[0-9])*)? return f(FLOAT_LTR);
 \"(\\.|[^"\\\n])*\" return f(STRING_LTR);
 '({ESCAPED_CHAR}|[^'\\\n])' return f(RUNE_LTR);
 true|false return f(BOOL_LTR);

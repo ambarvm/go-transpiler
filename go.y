@@ -37,9 +37,15 @@ package_clause: PACKAGE IDENT;
 import_list:
 |import_list import ';';
 
-import: IMPORT STRING_LTR
-|IMPORT IDENT STRING_LTR
-|IMPORT '.' STRING_LTR;
+import: IMPORT import_spec
+|IMPORT '(' import_spec_list ')';
+
+import_spec_list:
+|import_spec_list import_spec ';';
+
+import_spec:STRING_LTR
+|'.' STRING_LTR
+|IDENT STRING_LTR;
 
 top_level_decl_list:
 |top_level_decl_list top_level_decl ';';

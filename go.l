@@ -1,6 +1,8 @@
 %{
   #include "go.tab.h"
 
+  extern char* filename;
+  extern int ret_value;
   int f(int);
 %}
 
@@ -94,7 +96,7 @@ true|false return f(BOOL_LTR);
 \n { int token = f('\n'); if (token != '\n') return token; }
 [ \t] ;
 
-. printf("Unknown Character: %s\n",yytext);
+. { printf("%s:%d Unknown Character: %s\n", filename, yylineno, yytext); ret_value = 1; }
 %%
 
 int insert_semi = 0;

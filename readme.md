@@ -1,5 +1,7 @@
 # Golang Parser
 
+> Note: This is not a transpiler despite the name of the repository. It is only a parser. 
+
 ## Getting Started
 
 To complile and run the parser:
